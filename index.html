@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/ >
     <title>Adopt a Gnome</title>
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
@@ -23,6 +23,7 @@
             font-size: 3em;
             color: #c4a46c;
             text-shadow: 3px 3px 5px #000;
+            margin-bottom: 20px;
         }
 
         .hero p {
@@ -39,6 +40,24 @@
             text-decoration: none;
             font-size: 1.2em;
             margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .hero a:hover {
+            color: #e0c580;
+        }
+
+        .ascii-art {
+            max-width: 600px;
+            margin: 30px auto;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.2;
+            color: #f0dbc3;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .generator {
@@ -67,6 +86,11 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .generator button:hover {
+            background: #e0c580;
         }
 
         .loading-container {
@@ -97,6 +121,10 @@
 
         .gnome-showcase {
             margin: 50px 0;
+        }
+
+        .gnome-showcase h2 {
+            color: #c4a46c;
         }
 
         .gnome {
@@ -130,6 +158,11 @@
             cursor: pointer;
             display: inline-block;
             margin-right: 10px;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover, .share-btn:hover {
+            background: #e0c580;
         }
 
         .share-btn {
@@ -137,7 +170,10 @@
             color: #fff;
         }
 
-        /* New sections */
+        .share-btn:hover {
+            background: #40a9f3;
+        }
+
         .info-section {
             max-width: 800px;
             margin: 50px auto;
@@ -161,6 +197,11 @@
         .info-section p {
             line-height: 1.5;
             margin-bottom: 15px;
+        }
+
+        .info-section ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
         }
 
         .lore-grid {
@@ -212,6 +253,24 @@
             <a href="#how-it-works">How It Works</a>
             <a href="#gnome-lore">Gnome Lore & Myths</a>
         </div>
+
+        <div class="ascii-art">
+<pre>
+                /\
+               /  \      /\       
+              /    \    /  \       
+             /      \  /    \      
+            /        \/      \     
+          _/                 _\     
+         /  Mountain Range    \     
+        /       Ahead!         \    
+       /________________________\__ 
+
+          /\_./\       /\_./\ 
+         ( o.o )  &   ( o.o )   Gnomes dwell here!
+          > ^ <         > ^ <
+</pre>
+        </div>
     </div>
 
     <div class="generator">
@@ -235,10 +294,10 @@
         <h2>How It Works</h2>
         <p>Each gnome is uniquely generated from the wallet address you provide. Here's a simple breakdown:</p>
         <ol>
-            <li><strong>Wallet Address Input:</strong> You enter your Solana wallet address into the field above.</li>
+            <li><strong>Wallet Address Input:</strong> You enter your Solana wallet address above.</li>
             <li><strong>Hashing Process:</strong> The address is run through a special hashing function that transforms it into a numerical value.</li>
-            <li><strong>Attribute Assignment:</strong> This hash determines which type of gnome you'll get, along with its cap color, personality trait, accessory, and a “whimsy level.”</li>
-            <li><strong>Deterministic Results:</strong> The same wallet address will always yield the same gnome, ensuring that each companion is truly one-of-a-kind to you.</li>
+            <li><strong>Attribute Assignment:</strong> This hash determines the gnome’s type, cap color, personality trait, accessory, and "whimsy level."</li>
+            <li><strong>Deterministic Results:</strong> The same wallet address always yields the same gnome, ensuring each companion is one-of-a-kind.</li>
         </ol>
         <p>This approach blends randomness and consistency, giving you a unique digital friend tied directly to your address.</p>
     </div>
@@ -265,7 +324,7 @@
             </div>
             <div class="lore-item">
                 <h4>Tinker</h4>
-                <p>Resourceful inventors who craft clever gadgets and tiny contraptions from the forest’s hidden treasures.</p>
+                <p>Resourceful inventors who craft clever gadgets and contraptions from the forest’s hidden treasures.</p>
             </div>
             <div class="lore-item">
                 <h4>Forager</h4>
@@ -273,7 +332,7 @@
             </div>
             <div class="lore-item">
                 <h4>Shaman</h4>
-                <p>Spiritual guides attuned to the natural world’s energies, channeling them into protective totems and harmonious rituals.</p>
+                <p>Spiritual guides attuned to nature’s energies, channeling them into protective totems and harmonious rituals.</p>
             </div>
             <div class="lore-item">
                 <h4>Brewer</h4>
@@ -281,7 +340,7 @@
             </div>
             <div class="lore-item">
                 <h4>Woodcarver</h4>
-                <p>Artisans who shape forest wood into intricate works of art, each carving imbued with silent stories.</p>
+                <p>Artisans shaping forest wood into intricate artworks, each carving imbued with silent stories.</p>
             </div>
             <div class="lore-item">
                 <h4>Miner</h4>
@@ -289,7 +348,7 @@
             </div>
             <div class="lore-item">
                 <h4>Fungus Farmer</h4>
-                <p>Dedicated cultivators of special fungi that form the cornerstone of many gnome delicacies and healing brews.</p>
+                <p>Dedicated cultivators of special fungi that form the cornerstone of gnome delicacies and healing brews.</p>
             </div>
             <div class="lore-item">
                 <h4>Wanderer</h4>
@@ -297,7 +356,7 @@
             </div>
             <div class="lore-item">
                 <h4>Bard</h4>
-                <p>Musicians and storytellers whose songs echo through the grove, keeping the culture and memory of gnomekind alive.</p>
+                <p>Musicians and storytellers whose songs echo through the grove, keeping gnome culture and memory alive.</p>
             </div>
         </div>
 
@@ -310,7 +369,6 @@
     </footer>
 
     <script>
-    // Gnome Generator Script
     (function() {
         // DOM Elements
         const walletInput = document.getElementById('wallet-address');
@@ -476,7 +534,7 @@
             return solanaAddressRegex.test(address);
         }
 
-        // Advanced Hashing Function
+        // Hashing Function
         function hashAddress(address) {
             let hash = 0;
             for (let i = 0; i < address.length; i++) {
@@ -506,18 +564,18 @@
             };
         }
 
-        // Show Loading State
+        // Show Loading
         function showLoading() {
             loadingContainer.style.display = 'block';
             gnomeShowcase.innerHTML = '<h2>Your Gnome Companion</h2>';
         }
 
-        // Hide Loading State
+        // Hide Loading
         function hideLoading() {
             loadingContainer.style.display = 'none';
         }
 
-        // Display Generated Gnome
+        // Display Gnome
         function displayGnome(gnome) {
             const gnomeCard = document.createElement('div');
             gnomeCard.className = 'gnome';
@@ -536,7 +594,7 @@ ${gnome.asciiArt}
             downloadButton.textContent = 'Download Your Gnome';
             downloadButton.addEventListener('click', () => downloadGnome(gnome));
 
-            // Share on X Button
+            // Share Button
             const shareButton = document.createElement('button');
             shareButton.className = 'share-btn';
             shareButton.textContent = 'Share on X';
@@ -571,7 +629,7 @@ ${gnome.asciiArt}
             link.click();
         }
 
-        // Share on X Function
+        // Share Function
         function shareOnX(gnome) {
             const gnomeDetails = `I just adopted a new gnome companion! 🧙✨
 
@@ -589,23 +647,21 @@ Join me in the world of gnomes! #AdoptaGnome #GNOM 🍄🌱
             window.open(tweetUrl, '_blank');
         }
 
-        // Event Listener for Gnome Generation
+        // Generate Button Event
         generateButton.addEventListener('click', () => {
             const walletAddress = walletInput.value.trim();
 
-            // Validate wallet address
             if (!validateWalletAddress(walletAddress)) {
                 alert('Please enter a valid Solana wallet address!');
                 return;
             }
 
-            // Show loading and generate gnome
             showLoading();
 
             setTimeout(() => {
                 const hash = hashAddress(walletAddress);
                 const gnome = generateGnome(hash);
-                
+
                 hideLoading();
                 displayGnome(gnome);
             }, 2000);
