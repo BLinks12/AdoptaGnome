@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/ >
-    <title>Adopt a Gnome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Adopt a Gnome - Gnome1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'MedievalSharp', cursive;
-            background: linear-gradient(to bottom, #4a3e3e, #2a1e1e);
+            /* Added subtle background pattern overlay */
+            background: linear-gradient(to bottom, #4a3e3e, #2a1e1e), 
+                        url('https://example.com/subtle-forest-pattern.png');
+            background-repeat: repeat;
+            background-size: cover;
+            background-blend-mode: multiply;
             color: #f0dbc3;
             text-align: center;
             margin: 0;
@@ -43,21 +48,16 @@
             transition: color 0.3s;
         }
 
-        .hero a:hover {
-            color: #e0c580;
+        /* Add a mushroom icon before the navigation links */
+        .hero a[href="#how-it-works"]::before {
+            content: "🍄 ";
+        }
+        .hero a[href="#gnome-lore"]::before {
+            content: "🍄 ";
         }
 
-        .ascii-art {
-            max-width: 600px;
-            margin: 30px auto;
-            white-space: pre;
-            font-family: monospace;
-            font-size: 0.9em;
-            line-height: 1.2;
-            color: #f0dbc3;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 10px;
+        .hero a:hover {
+            color: #e0c580;
         }
 
         .generator {
@@ -189,6 +189,11 @@
             margin-bottom: 20px;
         }
 
+        /* Add a mushroom icon before "Gnome Lore & Myths" section title */
+        #gnome-lore h2::before {
+            content: "🍄 ";
+        }
+
         .info-section h3 {
             color: #c4a46c;
             margin-top: 30px;
@@ -202,6 +207,14 @@
         .info-section ol {
             margin-left: 20px;
             margin-bottom: 20px;
+            list-style: none; /* Remove default bullets */
+            padding: 0;
+        }
+
+        /* Add mushroom icons to "How It Works" steps */
+        .info-section ol li::before {
+            content: "🍄 ";
+            margin-right: 5px;
         }
 
         .lore-grid {
@@ -253,24 +266,6 @@
             <a href="#how-it-works">How It Works</a>
             <a href="#gnome-lore">Gnome Lore & Myths</a>
         </div>
-
-        <div class="ascii-art">
-<pre>
-             
-              /  \    /\
-             /    \  /  \
-            /      \/    \
-           /    Mountain   \
-          /      Range       \
-         /       Ahead!        \
-        /________________________\
-
-         /\_./\       /\_./\
-        ( o.o )   &   ( o.o )   Gnomes dwell here!
-         > ^ <         > ^ <
-         
-</pre>
-        </div>
     </div>
 
     <div class="generator">
@@ -295,73 +290,73 @@
         <p>Each gnome is uniquely generated from the wallet address you provide. Here's a simple breakdown:</p>
         <ol>
             <li><strong>Wallet Address Input:</strong> You enter your Solana wallet address above.</li>
-            <li><strong>Hashing Process:</strong> The address is run through a special hashing function that transforms it into a numerical value.</li>
-            <li><strong>Attribute Assignment:</strong> This hash determines the gnome’s type, cap color, personality trait, accessory, and "whimsy level."</li>
-            <li><strong>Deterministic Results:</strong> The same wallet address always yields the same gnome, ensuring each companion is one-of-a-kind.</li>
+            <li><strong>Hashing Process:</strong> The address transforms into a numerical value using a special hashing function.</li>
+            <li><strong>Attribute Assignment:</strong> This determines the gnome’s type, cap color, personality trait, accessory, and "whimsy level."</li>
+            <li><strong>Deterministic Results:</strong> The same wallet address always yields the same gnome, ensuring uniqueness.</li>
         </ol>
-        <p>This approach blends randomness and consistency, giving you a unique digital friend tied directly to your address.</p>
+        <p>This approach blends randomness with consistency, giving you a unique digital friend tied directly to your address.</p>
     </div>
 
     <!-- Gnome Lore & Myths Section -->
     <div class="info-section" id="gnome-lore">
         <h2>Gnome Lore & Myths</h2>
-        <p>Long before humans charted the forests and fields, the gnomes made their quiet homes beneath twisting roots and blooming mushrooms. They are caretakers of nature’s secrets, keepers of runic wisdom, and crafters of wondrous tools. Each gnome community embraces different trades, ensuring the balance and harmony of their hidden world.</p>
+        <p>Long before humans charted the forests and fields, the gnomes made their quiet homes beneath twisting roots and blooming mushrooms. They are caretakers of nature’s secrets, keepers of runic wisdom, and crafters of wondrous tools. Each gnome community embraces different trades, ensuring balance and harmony in their hidden world.</p>
 
         <p>In these enchanted groves, gnomes cultivate rare fungi, hum ancient melodies, and record cosmic prophecies. Some wander far, collecting stories from distant lands, while others stay rooted, tending to gardens that only blossom under moonlight. Here are some of the known gnome archetypes:</p>
 
         <div class="lore-grid">
             <div class="lore-item">
                 <h4>Garden Keeper</h4>
-                <p>Nurturers of flora, helping mystical plants to bloom. Patient and green-thumbed, they ensure each new bud thrives.</p>
+                <p>Nurturers of flora, helping mystical plants to bloom. Patient and green-thumbed, they ensure each bud thrives.</p>
             </div>
             <div class="lore-item">
                 <h4>Rune Reader</h4>
-                <p>Scholars of ancient symbols, these wise gnomes decode magical runes, guiding lost souls and revealing hidden paths.</p>
+                <p>Scholars of ancient symbols, decoding magical runes, guiding lost souls, and revealing hidden paths.</p>
             </div>
             <div class="lore-item">
                 <h4>Mushroom Mystic</h4>
-                <p>Enigmatic brewers of fungal elixirs, blending the boundaries between dreams and reality.</p>
+                <p>Enigmatic brewers of fungal elixirs, blending dreams and reality in their secret concoctions.</p>
             </div>
             <div class="lore-item">
                 <h4>Tinker</h4>
-                <p>Resourceful inventors who craft clever gadgets and contraptions from the forest’s hidden treasures.</p>
+                <p>Clever inventors, crafting tiny gadgets and contraptions from forest treasures.</p>
             </div>
             <div class="lore-item">
                 <h4>Forager</h4>
-                <p>Adventurous gatherers who roam the undergrowth, collecting rare ingredients and ensuring the community never goes hungry.</p>
+                <p>Adventurous gatherers who roam the undergrowth in search of rare ingredients and hidden bounty.</p>
             </div>
             <div class="lore-item">
                 <h4>Shaman</h4>
-                <p>Spiritual guides attuned to nature’s energies, channeling them into protective totems and harmonious rituals.</p>
+                <p>Spiritual guides attuned to nature’s energies, channeling them through protective totems and rituals.</p>
             </div>
             <div class="lore-item">
                 <h4>Brewer</h4>
-                <p>Creative gnomes who experiment with flavors, concocting brews that soothe, invigorate, or inspire grand tales.</p>
+                <p>Flavorful experimenters who create brews to soothe, inspire, or ignite imaginative tales.</p>
             </div>
             <div class="lore-item">
                 <h4>Woodcarver</h4>
-                <p>Artisans shaping forest wood into intricate artworks, each carving imbued with silent stories.</p>
+                <p>Artisans shaping forest wood into intricate artworks, each carving whispering silent stories.</p>
             </div>
             <div class="lore-item">
                 <h4>Miner</h4>
-                <p>Stalwart explorers of the underground, extracting rare minerals that glow with faint magical light.</p>
+                <p>Hardy explorers of the underground, unearthing luminous minerals and hidden gems.</p>
             </div>
             <div class="lore-item">
                 <h4>Fungus Farmer</h4>
-                <p>Dedicated cultivators of special fungi that form the cornerstone of gnome delicacies and healing brews.</p>
+                <p>Dedicated cultivators ensuring a steady supply of mushrooms for delicacies and healing brews.</p>
             </div>
             <div class="lore-item">
                 <h4>Wanderer</h4>
-                <p>Nomadic spirits who carry a staff and a story, forever mapping the world beyond the forest’s edge.</p>
+                <p>Nomadic spirits who carry a staff and a story, mapping lands beyond the gnome homeland.</p>
             </div>
             <div class="lore-item">
                 <h4>Bard</h4>
-                <p>Musicians and storytellers whose songs echo through the grove, keeping gnome culture and memory alive.</p>
+                <p>Musical storytellers whose songs echo through the grove, preserving gnome history and culture.</p>
             </div>
         </div>
 
         <h3>Rarity and Collectibility</h3>
-        <p>Within these archetypes lie subtle differences—rare cap colors, unusual accessories, and extraordinary traits. Some gnomes appear only once in a blue moon, making them prized companions among collectors. Keep exploring with different addresses to discover these rarities!</p>
+        <p>Among these archetypes lie subtle differences—rare cap colors, unusual accessories, and extraordinary traits. Some gnomes appear only under a full moon, making them prized among collectors. Keep exploring with different addresses to discover these rarities!</p>
     </div>
 
     <footer>
@@ -529,7 +524,6 @@
 
         // Wallet Address Validation
         function validateWalletAddress(address) {
-            // Basic Solana wallet address validation
             const solanaAddressRegex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
             return solanaAddressRegex.test(address);
         }
@@ -600,10 +594,8 @@ ${gnome.asciiArt}
             shareButton.textContent = 'Share on X';
             shareButton.addEventListener('click', () => shareOnX(gnome));
 
-            // Append buttons to gnome card
             gnomeCard.appendChild(downloadButton);
             gnomeCard.appendChild(shareButton);
-
             gnomeShowcase.appendChild(gnomeCard);
         }
 
@@ -629,7 +621,7 @@ ${gnome.asciiArt}
             link.click();
         }
 
-        // Share Function
+        // Share on X
         function shareOnX(gnome) {
             const gnomeDetails = `I just adopted a new gnome companion! 🧙✨
 
