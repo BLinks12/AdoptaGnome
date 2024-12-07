@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt a Gnome</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'MedievalSharp', cursive;
+            background: linear-gradient(to bottom, #4a3e3e, #2a1e1e);
+            color: #f0dbc3;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero {
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            color: #c4a46c;
+            text-shadow: 3px 3px 5px #000;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .hero .links {
+            margin-top: 20px;
+        }
+
+        .hero a {
+            color: #c4a46c;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 0 10px;
+        }
+
+        .generator {
+            margin: 30px 0;
+            padding: 20px;
+            background: #5c4c4c;
+            border: 2px solid #c4a46c;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .generator input {
+            font-size: 1.2em;
+            padding: 10px;
+            width: 300px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+
+        .generator button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            background: #c4a46c;
+            color: #2a1e1e;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .loading-container {
+            display: none;
+            margin: 20px auto;
+        }
+
+        .loading-text {
+            color: #c4a46c;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #4a3e3e;
+            border-top: 5px solid #c4a46c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .gnome-showcase {
+            margin: 50px 0;
+        }
+
+        .gnome {
+            display: inline-block;
+            margin: 20px;
+            padding: 15px;
+            border: 2px solid #444;
+            border-radius: 10px;
+            background: #333;
+            color: #c4a46c;
+            text-align: left;
+            font-size: 1em;
+            white-space: pre;
+            overflow-x: auto;
+            position: relative;
+            width: 300px;
+        }
+
+        .gnome p {
+            margin: 5px 0;
+        }
+
+        .download-btn, .share-btn {
+            margin-top: 10px;
+            font-size: 1em;
+            padding: 8px 16px;
+            background: #c4a46c;
+            color: #2a1e1e;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .share-btn {
+            background: #1DA1F2; /* Twitter Blue */
+            color: #fff;
+        }
+
+        /* New sections */
+        .info-section {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .info-section h2 {
+            text-align: center;
+            color: #c4a46c;
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            color: #c4a46c;
+            margin-top: 30px;
+        }
+
+        .info-section p {
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .lore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .lore-item {
+            background: #444;
+            padding: 15px;
+            border-radius: 10px;
+            color: #f0dbc3;
+        }
+
+        .lore-item h4 {
+            margin-top: 0;
+            color: #c4a46c;
+        }
+
+        footer {
+            padding: 20px 0;
+            background: #2a1e1e;
+            color: #888;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .gnome {
+                width: 90%;
+            }
+
+            .generator input {
+                width: 80%;
+            }
+
+            .lore-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Adopt a Gnome</h1>
+        <p>Enter your Solana wallet address below and discover your special gnome companion!</p>
+        <div class="links">
+            <a href="#how-it-works">How It Works</a>
+            <a href="#gnome-lore">Gnome Lore & Myths</a>
+        </div>
+    </div>
+
+    <div class="generator">
+        <label for="wallet-address" style="display:none;">Wallet Address</label>
+        <input type="text" id="wallet-address" placeholder="Enter your Solana wallet address...">
+        <button id="generate-button">Generate My Gnome</button>
+    </div>
+
+    <div class="loading-container" id="loading-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Summoning Your Gnome...</p>
+    </div>
+
+    <div class="gnome-showcase" id="gnome-showcase">
+        <h2>Your Gnome Companion</h2>
+        <!-- Generated gnome will appear here -->
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="info-section" id="how-it-works">
+        <h2>How It Works</h2>
+        <p>Each gnome is uniquely generated from the wallet address you provide. Here's a simple breakdown:</p>
+        <ol>
+            <li><strong>Wallet Address Input:</strong> You enter your Solana wallet address into the field above.</li>
+            <li><strong>Hashing Process:</strong> The address is run through a special hashing function that transforms it into a numerical value.</li>
+            <li><strong>Attribute Assignment:</strong> This hash determines which type of gnome you'll get, along with its cap color, personality trait, accessory, and a “whimsy level.”</li>
+            <li><strong>Deterministic Results:</strong> The same wallet address will always yield the same gnome, ensuring that each companion is truly one-of-a-kind to you.</li>
+        </ol>
+        <p>This approach blends randomness and consistency, giving you a unique digital friend tied directly to your address.</p>
+    </div>
+
+    <!-- Gnome Lore & Myths Section -->
+    <div class="info-section" id="gnome-lore">
+        <h2>Gnome Lore & Myths</h2>
+        <p>Long before humans charted the forests and fields, the gnomes made their quiet homes beneath twisting roots and blooming mushrooms. They are caretakers of nature’s secrets, keepers of runic wisdom, and crafters of wondrous tools. Each gnome community embraces different trades, ensuring the balance and harmony of their hidden world.</p>
+
+        <p>In these enchanted groves, gnomes cultivate rare fungi, hum ancient melodies, and record cosmic prophecies. Some wander far, collecting stories from distant lands, while others stay rooted, tending to gardens that only blossom under moonlight. Here are some of the known gnome archetypes:</p>
+
+        <div class="lore-grid">
+            <div class="lore-item">
+                <h4>Garden Keeper</h4>
+                <p>Nurturers of flora, helping mystical plants to bloom. Patient and green-thumbed, they ensure each new bud thrives.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Rune Reader</h4>
+                <p>Scholars of ancient symbols, these wise gnomes decode magical runes, guiding lost souls and revealing hidden paths.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Mushroom Mystic</h4>
+                <p>Enigmatic brewers of fungal elixirs, blending the boundaries between dreams and reality.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Tinker</h4>
+                <p>Resourceful inventors who craft clever gadgets and tiny contraptions from the forest’s hidden treasures.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Forager</h4>
+                <p>Adventurous gatherers who roam the undergrowth, collecting rare ingredients and ensuring the community never goes hungry.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Shaman</h4>
+                <p>Spiritual guides attuned to the natural world’s energies, channeling them into protective totems and harmonious rituals.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Brewer</h4>
+                <p>Creative gnomes who experiment with flavors, concocting brews that soothe, invigorate, or inspire grand tales.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Woodcarver</h4>
+                <p>Artisans who shape forest wood into intricate works of art, each carving imbued with silent stories.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Miner</h4>
+                <p>Stalwart explorers of the underground, extracting rare minerals that glow with faint magical light.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Fungus Farmer</h4>
+                <p>Dedicated cultivators of special fungi that form the cornerstone of many gnome delicacies and healing brews.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Wanderer</h4>
+                <p>Nomadic spirits who carry a staff and a story, forever mapping the world beyond the forest’s edge.</p>
+            </div>
+            <div class="lore-item">
+                <h4>Bard</h4>
+                <p>Musicians and storytellers whose songs echo through the grove, keeping the culture and memory of gnomekind alive.</p>
+            </div>
+        </div>
+
+        <h3>Rarity and Collectibility</h3>
+        <p>Within these archetypes lie subtle differences—rare cap colors, unusual accessories, and extraordinary traits. Some gnomes appear only once in a blue moon, making them prized companions among collectors. Keep exploring with different addresses to discover these rarities!</p>
+    </div>
+
+    <footer>
+        © 2024 Adopt a Gnome | Mushroom Mischief Awaits
+    </footer>
+
+    <script>
+    // Gnome Generator Script
+    (function() {
+        // DOM Elements
+        const walletInput = document.getElementById('wallet-address');
+        const generateButton = document.getElementById('generate-button');
+        const gnomeShowcase = document.getElementById('gnome-showcase');
+        const loadingContainer = document.getElementById('loading-container');
+
+        // Gnome Generation Configuration
+        const GNOME_TYPES = [
+            {
+                type: 'Garden Keeper',
+                traits: ['Nurturing', 'Green-Thumbed', 'Patient'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | * |
+ [Spade]
+                `
+            },
+            {
+                type: 'Rune Reader',
+                traits: ['Wise', 'Mystical', 'Arcane'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  |<|>|
+ [Runes]
+                `
+            },
+            {
+                type: 'Tinker',
+                traits: ['Inventive', 'Clever', 'Resourceful'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | O |
+ [Gears]
+                `
+            },
+            {
+                type: 'Forager',
+                traits: ['Adventurous', 'Agile', 'Curious'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  |U U|
+ [Basket]
+                `
+            },
+            {
+                type: 'Mushroom Mystic',
+                traits: ['Enigmatic', 'Fungal', 'Dreamy'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  |m m|
+ [Shroom]
+                `
+            },
+            {
+                type: 'Woodcarver',
+                traits: ['Artistic', 'Steady-Handed', 'Focused'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  |=|=|
+ [Chisel]
+                `
+            },
+            {
+                type: 'Brewer',
+                traits: ['Creative', 'Experimental', 'Flavorful'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  |~ ~|
+ [Brew]
+                `
+            },
+            {
+                type: 'Shaman',
+                traits: ['Spiritual', 'Natural', 'Harmonic'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | T |
+ [Totem]
+                `
+            },
+            {
+                type: 'Miner',
+                traits: ['Hardy', 'Stalwart', 'Resilient'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | Y |
+ [Pickaxe]
+                `
+            },
+            {
+                type: 'Fungus Farmer',
+                traits: ['Diligent', 'Quiet', 'Persistent'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | n |
+ [Hoe]
+                `
+            },
+            {
+                type: 'Wanderer',
+                traits: ['Nomadic', 'Explorer', 'Free-Spirited'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | S |
+ [Staff]
+                `
+            },
+            {
+                type: 'Bard',
+                traits: ['Musical', 'Charismatic', 'Creative'],
+                art: `
+   /\\
+  /  \\
+ ( o.o )
+  | ^ |
+  | & |
+ [Lute]
+                `
+            }
+        ];
+
+        const COLORS = ['Red-Capped', 'Blue-Capped', 'Green-Capped', 'Brown-Capped', 'Purple-Capped', 'Grey-Capped', 'Silver-Capped', 'Golden-Capped', 'Orange-Capped', 'Teal-Capped'];
+        const ACCESSORIES = ['Spade', 'Runes', 'Gears', 'Basket', 'Shroom', 'Chisel', 'Brew', 'Totem', 'Pickaxe', 'Hoe', 'Staff', 'Lute'];
+
+        // Wallet Address Validation
+        function validateWalletAddress(address) {
+            // Basic Solana wallet address validation
+            const solanaAddressRegex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+            return solanaAddressRegex.test(address);
+        }
+
+        // Advanced Hashing Function
+        function hashAddress(address) {
+            let hash = 0;
+            for (let i = 0; i < address.length; i++) {
+                const char = address.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            return Math.abs(hash);
+        }
+
+        // Gnome Generation
+        function generateGnome(hash) {
+            const typeIndex = hash % GNOME_TYPES.length;
+            const colorIndex = (hash >> 2) % COLORS.length;
+            const accessoryIndex = (hash >> 4) % ACCESSORIES.length;
+            const whimsyLevel = (hash % 100) + 1;
+
+            const gnomeType = GNOME_TYPES[typeIndex];
+
+            return {
+                type: gnomeType.type,
+                color: COLORS[colorIndex],
+                accessory: ACCESSORIES[accessoryIndex],
+                trait: gnomeType.traits[hash % gnomeType.traits.length],
+                whimsyLevel: whimsyLevel,
+                asciiArt: gnomeType.art
+            };
+        }
+
+        // Show Loading State
+        function showLoading() {
+            loadingContainer.style.display = 'block';
+            gnomeShowcase.innerHTML = '<h2>Your Gnome Companion</h2>';
+        }
+
+        // Hide Loading State
+        function hideLoading() {
+            loadingContainer.style.display = 'none';
+        }
+
+        // Display Generated Gnome
+        function displayGnome(gnome) {
+            const gnomeCard = document.createElement('div');
+            gnomeCard.className = 'gnome';
+            gnomeCard.innerHTML = `
+${gnome.asciiArt}
+<p><strong>Type:</strong> ${gnome.type}</p>
+<p><strong>Cap Color:</strong> ${gnome.color}</p>
+<p><strong>Trait:</strong> ${gnome.trait}</p>
+<p><strong>Accessory:</strong> ${gnome.accessory}</p>
+<p><strong>Whimsy Level:</strong> ${gnome.whimsyLevel}/100</p>
+            `;
+
+            // Download Button
+            const downloadButton = document.createElement('button');
+            downloadButton.className = 'download-btn';
+            downloadButton.textContent = 'Download Your Gnome';
+            downloadButton.addEventListener('click', () => downloadGnome(gnome));
+
+            // Share on X Button
+            const shareButton = document.createElement('button');
+            shareButton.className = 'share-btn';
+            shareButton.textContent = 'Share on X';
+            shareButton.addEventListener('click', () => shareOnX(gnome));
+
+            // Append buttons to gnome card
+            gnomeCard.appendChild(downloadButton);
+            gnomeCard.appendChild(shareButton);
+
+            gnomeShowcase.appendChild(gnomeCard);
+        }
+
+        // Download Gnome Details
+        function downloadGnome(gnome) {
+            const gnomeDetails = `
+Gnome Companion Details:
+------------------------
+Type: ${gnome.type}
+Cap Color: ${gnome.color}
+Trait: ${gnome.trait}
+Accessory: ${gnome.accessory}
+Whimsy Level: ${gnome.whimsyLevel}/100
+
+Ascii Art:
+${gnome.asciiArt}
+            `;
+
+            const blob = new Blob([gnomeDetails], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${gnome.type}_Gnome.txt`;
+            link.click();
+        }
+
+        // Share on X Function
+        function shareOnX(gnome) {
+            const gnomeDetails = `I just adopted a new gnome companion! 🧙✨
+
+Type: ${gnome.type}
+Cap Color: ${gnome.color}
+Trait: ${gnome.trait}
+Accessory: ${gnome.accessory}
+Whimsy Level: ${gnome.whimsyLevel}/100
+
+Join me in the world of gnomes! #AdoptaGnome #GNOM 🍄🌱
+
+@AdoptaGnome`;
+
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(gnomeDetails)}`;
+            window.open(tweetUrl, '_blank');
+        }
+
+        // Event Listener for Gnome Generation
+        generateButton.addEventListener('click', () => {
+            const walletAddress = walletInput.value.trim();
+
+            // Validate wallet address
+            if (!validateWalletAddress(walletAddress)) {
+                alert('Please enter a valid Solana wallet address!');
+                return;
+            }
+
+            // Show loading and generate gnome
+            showLoading();
+
+            setTimeout(() => {
+                const hash = hashAddress(walletAddress);
+                const gnome = generateGnome(hash);
+                
+                hideLoading();
+                displayGnome(gnome);
+            }, 2000);
+        });
+    })();
+    </script>
+</body>
+</html>
